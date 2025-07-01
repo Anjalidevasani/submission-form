@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>submission form</title>
+</head>
+<body>
+    <h2>Submission Form</h2>
+ <form id="Submission-Form" onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+
+    <!-- First Name -->
+    <label for="first-name">First Name:</label><br>
+    <input type="text" id="first-name" name="firstName" required><br><br>
+
+    <!-- Last Name -->
+    <label for="last-name">Last Name:</label><br>
+    <input type="text" id="last-name" name="lastName" required><br><br>
+
+    <!-- Phone Number -->
+    <label for="phone">Phone Number:</label><br>
+    <input type="tel" id="phone" name="phone" pattern="[6-9][0-9]{9}" required placeholder="10-digit number"><br><br>
+
+    <!-- Email -->
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <!-- Password -->
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <!-- Gender -->
+    <label>Gender:</label><br>
+    <input type="radio" name="gender" value="Male" required> Male
+    <input type="radio" name="gender" value="Female"> Female
+    <input type="radio" name="gender" value="Other"> Other<br><br>
+
+    <!-- Hobbies -->
+    <label>Hobbies:</label><br>
+    <input type="checkbox" name="hobbies" value="Reading"> Reading
+    <input type="checkbox" name="hobbies" value="Music"> Music
+    <input type="checkbox" name="hobbies" value="Sports"> Sports<br><br>
+
+    <!-- Resume Upload -->
+  <!--<label for="resume">Upload Resume (.doc, .docx, .pdf only):</label><br>
+  <input type="file" name="resume" id="resume" accept=".doc,.docx,.pdf" required><br><br>
+  <input type="submit" value="Submit">-->
+  
+  <label for="resume">Upload Resume (.doc, .docx, .pdf only):</label><br>
+    <input type="file" id="resume" name="resume" required onchange="checkFileType()"><br>
+    <span class="error" id="fileError">⚠️ Only .doc, .docx, or .pdf files are allowed.</span><br><br>
+
+    <!-- Submit and Reset Buttons -->
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset" onclick="clearFileError()">
+
+  </form>
+
+  <script>
+    function checkFileType() {
+      const fileInput = document.getElementById('resume');
+      const fileError = document.getElementById('fileError');
+      const allowedExtensions = /\.(pdf|doc|docx)$/i;
+
+      if (!allowedExtensions.test(fileInput.value)) {
+        fileError.style.display = "inline";
+        fileInput.setCustomValidity("Please upload only .doc, .docx, or .pdf files.");
+      } else {
+        fileError.style.display = "none";
+        fileInput.setCustomValidity(""); // clear error
+      }
+    }
+
+    function validateForm() {
+      checkFileType(); // Re-check file on submit
+      const fileInput = document.getElementById('resume');
+      return fileInput.checkValidity(); // Allow submit only if valid
+    }
+
+    function clearFileError() {
+      const fileError = document.getElementById('fileError');
+      const fileInput = document.getElementById('resume');
+      fileError.style.display = "none";
+      fileInput.setCustomValidity("");
+    }
+  </script>
+ 
+
+  
+</body>
+</html>
